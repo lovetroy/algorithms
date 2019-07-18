@@ -1,7 +1,4 @@
-class Node(object):
-    def __init__(self, val):
-        self.val = val
-        self.next = None
+import util.linked_list_util as util
 
 
 # solution of traverse
@@ -22,26 +19,7 @@ def reverse_list(head):
     return next
 
 
-# generate linked list
-def gen_list(pre_node, cur_num, end_num):
-    cur_node = Node(cur_num)
-    if cur_num == end_num:
-        cur_node.next = None
-    else:
-        if pre_node:
-            pre_node.next = cur_node
-        cur_node.next = gen_list(cur_node, cur_num + 1, end_num)
-    return cur_node
-
-
-# print linked list
-def print_list(cur):
-    while (cur):
-        print(cur.val)
-        cur = cur.next
-
-
-node = gen_list(None, 0, 5)
-print_list(node)
-node = reverse_list(node)
-print_list(node)
+node_input = util.gen_list(None, 0, 5)
+util.print_list(node_input)
+node_input = reverse_list(node_input)
+util.print_list(node_input)
