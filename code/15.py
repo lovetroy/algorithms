@@ -21,10 +21,10 @@ def three_sum(nums):
             continue
         d = {}
         for x in nums[i + 1:]:
-            if x in d:
+            if -v - x in d:
                 res.add((v, x, -v - x))
             else:
-                d[-v - x] = 1
+                d[x] = 1
     return list(map(list, res))
 
 
