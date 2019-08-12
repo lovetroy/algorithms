@@ -20,10 +20,10 @@ def two_sum(nums, target):
     for i in range(0, len(nums)):
         d[nums[i]] = i
     for i, num in enumerate(nums):
-        if target - num in d:
+        if target - num in d and d[target - num] != i:
             return [d[target - num], i]
 
 
-nums_input = [2, 3, 4, 7]
-target_input = 9
+nums_input = [ 3,2, 4]
+target_input = 6
 print(two_sum(nums_input, target_input))
