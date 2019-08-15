@@ -4,10 +4,10 @@ def three_sum(nums):
     nums.sort()
     res = set()
     for i in range(0, len(nums) - 2):
-        for j in range(i + 1, len(nums)-1):
-            for x in range(j+1,len(nums)):
-                if nums[i]+nums[j]+nums[x]==0:
-                    res.add((nums[i],nums[j],nums[x]))
+        for j in range(i + 1, len(nums) - 1):
+            for x in range(j + 1, len(nums)):
+                if nums[i] + nums[j] + nums[x] == 0:
+                    res.add((nums[i], nums[j], nums[x]))
     return list(map(list, res))
 
 
@@ -17,7 +17,7 @@ def three_sum(nums):
     nums.sort()
     res = set()
     for i, v in enumerate(nums[:-2]):
-        if i >= 1 and v == nums[i - 1]:
+        if i > 0 and v == nums[i - 1]:
             continue
         d = {}
         for x in nums[i + 1:]:
@@ -28,35 +28,31 @@ def three_sum(nums):
     return list(map(list, res))
 
 
-# nums=[-1,0,1,2,-1,-4]
-# import time
-# import resource
-# import memory_profiler
-#
-# def using():
-#     usage = resource.getrusage(resource.RUSAGE_SELF)
-#     mem = usage[2]*resource.getpagesize() /1000000.0
-#     print("mem: ", mem,  " Mb")
-#     return mem
-#
-#
-# def mem_scan():
-#     before_mem = memory_profiler.memory_usage()
-#
-#     for i in range(1000000):
-#         print(i)
-#
-#     after_mem = memory_profiler.memory_usage()
-#
-#     print("Memory (Before): {}Mb".format(before_mem))
-#     print("Memory (After): {}Mb".format(after_mem))
-#
-# before_mem = memory_profiler.memory_usage()
-# a=time.time()
-nums = [-1, 0, 1, 2, -1, -4]
+def three_sum(nums):
+    if len(nums) < 3:
+        return []
+    nums.sort()
+    res = []
+    for i in range(0, len(nums) - 2):
+        if i > 0 and nums[i] == nums[i - 1]:
+            continue
+        l, r = i + 1, len(nums) - 1
+        while l < r:
+            sum = nums[i] + nums[l] + nums[r]
+            if sum > 0:
+                r -= 1
+            elif sum < 0:
+                l += 1
+            else:
+                res.append((nums[i], nums[l], nums[r]))
+                while l < r and nums[l] == nums[l + 1]:
+                    l += 1
+                while l < r and nums[r] == nums[r - 1]:
+                    r -= 1
+                l += 1
+                r -= 1
+    return res
+
+
+nums = [-1, 0, 1, -1, 0, 1, -1, 0, 1, -1, 0, 1, ]
 print(three_sum(nums))
-# print(time.time(),a)
-# after_mem = memory_profiler.memory_usage()
-# print("Memory (Before): {}Mb".format(before_mem))
-# print("Memory (After): {}Mb".format(after_mem))
-# print(1565563053060- 1565562096107)
