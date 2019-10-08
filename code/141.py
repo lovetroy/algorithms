@@ -12,6 +12,8 @@ def has_cycle(head):
 
 
 def has_cycle(head):
+    if not head:
+        return False
     slow, fast = head, head.next
     while slow and fast and fast.next:
         if slow == fast:
