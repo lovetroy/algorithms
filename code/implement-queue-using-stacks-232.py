@@ -20,7 +20,7 @@ class MyQueue:
         """
         Removes the element from in front of queue and returns that element.
         """
-        if len(self.output_stack) == 0:
+        if not self.output_stack:
             while len(self.input_stack) > 0:
                 self.output_stack.append(self.input_stack.pop())
         return self.output_stack.pop()
@@ -29,10 +29,10 @@ class MyQueue:
         """
         Get the front element.
         """
-        if len(self.output_stack) == 0:
+        if not self.output_stack:
             while len(self.input_stack) > 0:
                 self.output_stack.append(self.input_stack.pop())
-        if len(self.output_stack) == 0:
+        if not self.output_stack:
             return None
         return self.output_stack.__getitem__(-1)
 
@@ -40,7 +40,7 @@ class MyQueue:
         """
         Returns whether the queue is empty.
         """
-        return len(self.input_stack) == len(self.output_stack) == 0
+        return not self.input_stack and not self.output_stack
 
 
 if __name__ == '__main__':
