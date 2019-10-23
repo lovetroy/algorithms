@@ -1,42 +1,59 @@
-class TreeNode(object):
-    def __init__(self, val=None, left=None, right=None, parent=None):
-        self.val = val
-        self.left = left
-        self.right = right
-
-
 import util.tree_util as util
 
 
+# 解法1
 def is_valid_bst(root):
-    nodes = pre_order(root)
-    pre_val = None
-    for node in nodes:
-        if pre_val == None:
-            pre_val = node.val
-            continue
-        print(pre_val, node.val)
-        if not node.val > pre_val:
-            return False
-        pre_val = node.val
-    return True
+    inorder = in_order(root)
+    return inorder == list(sorted(set(inorder)))
 
 
-def pre_order(node):
-    if not node:
+def in_order(root):
+    if not root:
         return []
-    return pre_order(node.left) + [node] + pre_order(node.right)
+    return in_order(root.left) + [root.val] + in_order(root.right)
 
 
-root = util.TreeNode(5)
-root.left = util.TreeNode(3)
-root.right = util.TreeNode(7)
+# 解法2
+class Solution:
+    def is_valid_bst(self, root):
+        self.prev = None
+        return self.helper(root)
 
-root.left.left = util.TreeNode(2)
-root.left.right = util.TreeNode(4)
+    def helper(self, root):
+        if not root:
+            return True
+        if not self.helper(root.left):
+            return False
+        if self.prev and self.prev.val >= root.val:
+            return False
+        self.prev = root
+        return self.helper(root.right)
 
-root.right.left = util.TreeNode(6)
-root.right.right = util.TreeNode(8)
+
+# 解法3
+def is_valid_bst(root):
+    return helper(root, None, None)
+
+
+def helper(root, min, max):
+    if not root:
+        return True
+    if min is not None and root.val <= min:
+        return False
+    if max is not None and root.val >= max:
+        return False
+    return helper(root.left, min, root.val) and helper(root.right, root.val, max)
+
+
+root = util.TreeNode(0)
+# root.left = util.TreeNode(3)
+root.right = util.TreeNode(-1)
+#
+# root.left.left = util.TreeNode(2)
+# root.left.right = util.TreeNode(4)
+#
+# root.right.left = util.TreeNode(6)
+# root.right.right = util.TreeNode(8)
 
 # nodes=pre_order(root)
 # for node in nodes:
