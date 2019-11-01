@@ -3,14 +3,14 @@ import util.tree_util as util
 
 # 解法1
 def is_valid_bst(root):
-    inorder = in_order(root)
+    inorder = helper(root)
     return inorder == list(sorted(set(inorder)))
 
 
-def in_order(root):
+def helper(root):
     if not root:
         return []
-    return in_order(root.left) + [root.val] + in_order(root.right)
+    return helper(root.left) + [root.val] + helper(root.right)
 
 
 # 解法2
