@@ -22,7 +22,6 @@ def min_depth(root):
 
     while node_deque:
         depth, root = node_deque.popleft()
-        print(root.val)
         children = [root.left, root.right]
         if not any(children):
             return depth
